@@ -1,0 +1,11 @@
+<?php
+class CharEntities {
+var $pk_id;
+var $char;
+var $entity_type_id;
+var $entity_id;
+var $status;
+var $create_date;
+var $last_update;
+}
+?>
