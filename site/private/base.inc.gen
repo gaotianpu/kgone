@@ -1,6 +1,5 @@
 <?php
 require_once(ROOT_DIR."/private/dao/BaseDAO.inc");
-
 require_once(ROOT_DIR."/private/model/CharEntities.inc");
 require_once(ROOT_DIR."/private/dao/CharEntitiesDAO.inc");
 require_once(ROOT_DIR."/private/logic/CharEntitiesLogic.inc");
@@ -27,16 +26,6 @@ require_once(ROOT_DIR."/private/logic/UploadBatchesLogic.inc");
 
 require_once(ROOT_DIR."/private/model/Users.inc");
 require_once(ROOT_DIR."/private/dao/UsersDAO.inc");
-require_once(ROOT_DIR."/private/logic/UserLogic.inc");
-
-require_once(ROOT_DIR."/private/controller/IndexController.inc");
-require_once(ROOT_DIR."/private/controller/RegisterController.inc");
-require_once(ROOT_DIR."/private/controller/LoginController.inc"); 
-require_once(ROOT_DIR."/private/controller/EntityTypeController.inc");
-require_once(ROOT_DIR."/private/controller/EntityController.inc");
-require_once(ROOT_DIR."/private/controller/UploadController.inc");
-require_once(ROOT_DIR."/private/controller/FeedController.inc");
-require_once(ROOT_DIR."/private/controller/DownloadController.inc");
-require_once(ROOT_DIR."/private/controller/SchemaController.inc");
+require_once(ROOT_DIR."/private/logic/UsersLogic.inc");
 
 ?>

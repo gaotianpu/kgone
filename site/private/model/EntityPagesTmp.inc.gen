@@ -1,0 +1,19 @@
+<?php
+class EntityPagesTmp {
+var $pk_id;
+var $user_id;
+var $batch_id;
+var $entity_type_id;
+var $name;
+var $entity_id;
+var $entity_id_set;
+var $url;
+var $raw_entity_id;
+var $domain_main;
+var $domain;
+var $jsonld;
+var $status;
+var $create_date;
+var $last_update;
+}
+?>

@@ -1,0 +1,12 @@
+<?php
+class Users {
+var $pk_id;
+var $mobile;
+var $email;
+var $nick_name;
+var $password;
+var $creation_date;
+var $last_update;
+var $last_login;
+}
+?>

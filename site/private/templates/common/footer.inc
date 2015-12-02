@@ -1,0 +1,8 @@
+ <footer class="footer">
+      <div class="container-fluid">
+        <p class="text-muted">KGOne,一个面向开发者的结构化数据分享平台</p>
+      </div>
+    </footer>
+
+</body>
+</html>

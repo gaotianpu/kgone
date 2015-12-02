@@ -9,8 +9,14 @@ rename = require('gulp-rename'),
 concat = require('gulp-concat'),
 notify = require('gulp-notify'),
 cache = require('gulp-cache'),
+contentIncluder = require('gulp-content-includer'),
 livereload = require('gulp-livereload'),
 del = require('del');
+
+/*
+npm install gulp-content-includer gulp-ruby-sass gulp-autoprefixer gulp-minify-css gulp-jshint gulp-concat gulp-uglify gulp-imagemin gulp-notify gulp-rename gulp-livereload gulp-cache del --save-dev
+*/
+// 
 
 //js语法检查
 gulp.task('jshint',function () {
@@ -54,7 +60,8 @@ gulp.task('css',function() {
         .pipe(gulp.dest('./dist/static/css'))       //输出到文件夹
         .pipe(rename({suffix: '.min'}))   //rename压缩后的文件名
         .pipe(minifycss())   //执行压缩
-        .pipe(gulp.dest('./dist/static/css'));   //输出文件夹
+        .pipe(gulp.dest('./dist/static/css'))   //输出文件夹
+        .pipe(gulp.dest('../site/public/static/css'));   //输出文件夹
     });
 
 gulp.task('clean', function(cb) {

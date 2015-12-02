@@ -1,0 +1,11 @@
+<?php
+class UploadBatches {
+var $pk_id;
+var $user_id;
+var $batch_no;
+var $jsonld;
+var $status;
+var $create_date;
+var $last_update;
+}
+?>

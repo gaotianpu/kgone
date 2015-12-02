@@ -1,0 +1,4 @@
+excludefiles.txt
+*.gen
+*.bak
+*DS_Store*
