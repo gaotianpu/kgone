@@ -1,0 +1,6 @@
+name,type,sample,require,notes
+version,float,0.1,1,schema版本号
+type,enum,Movie,1,类型
+id,string,11026735,1,实体id
+name,string,超能陆战队,1,实体名称
+urls,string[],http://movie.douban.com/subject/11026735/,1,实体的
