@@ -1,35 +1,29 @@
 <?php
-class LoginController{
-    protected  $app;
+class LoginController extends BaseController{ 
 
-    function __construct($app) {
-        $this->app = $app;
-    }
-
-    function get(){
-
-       $r = $this->app->request();
-     // $username = $r->params('username'); // $app->request()->params('username');
+    function get(){ 
+       $r = $this->app->request(); 
 
        $tdl=array('title'=>'用户登录',
         'keywords'=>'keywords',
-        'description'=>'description');
-        // echo "hello,world";
+        'description'=>'description'); 
 
        $this->app->render('login.inc', array('tdl' => $tdl));
 
    }
 
-   function post(){
-    $logic = new UserLogic();
-
+   function post(){ 
     $mobile = $this->app->request()->params('mobile');
     $password = $this->app->request()->params('password');
-     
 
+    $logic = new UserLogic();
     $userId = $logic->login($mobile,$password);
 
-    echo $userId;
+    $_SESSION['userId']=$userId;
+    $_SESSION['mobile']=$mobile;
+
+
+    $this->app->response->redirect('/',302);
 }
 
 

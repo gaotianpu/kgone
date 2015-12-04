@@ -1,11 +1,6 @@
 <?php
-class EntityTypeController {
-    protected  $app;
-
-    function __construct($app) {
-        $this->app = $app;
-    }
-
+class EntityTypeController  extends BaseController{
+  
     function get($name){
      $r = $this->app->request();
      // $username = $r->params('username'); // $app->request()->params('username');
@@ -27,7 +22,7 @@ class EntityTypeController {
        $rows[] = array('name' =>'星美国际影城' ,'pk_id' =>'1', 'sites' =>'糯米 美团 大众点评 豆瓣');  
        $rows = $entdao->load($name);
 
-     $this->app->render('entityType.inc', array('tdl' => $tdl, 'main'=>$main, 'rows'=>$rows));
+     $this->app->render('entityType.inc', array('tdl' => $tdl, 'user'=>$this->currentUser, 'main'=>$main, 'rows'=>$rows));
 
  }
 }

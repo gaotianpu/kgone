@@ -18,7 +18,7 @@
       <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script data-main="/static/js/main" src="/static/js/lib/require.2.1.20.min.js" defer async="true"></script>
+    <script data-main="/static/js/main" src="/static/js/require.2.1.20.min.js" defer async="true"></script>
     <script type="text/javascript">
     var isRelease=false;
     </script>

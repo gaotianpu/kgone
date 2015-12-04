@@ -12,7 +12,7 @@ require 'common/header.inc' ;
     <input type="text" id="inputMobile" name="mobile" class="form-control" placeholder="手机号" required autofocus>
     
     <label for="inputPassword" class="sr-only">Password</label>
-    <input type="text" id="inputPassword" name="password" class="form-control" placeholder="登录密码" required> 
+    <input type="text" id="inputPassword" name="password" class="form-control" placeholder="设置登录密码" required> 
      
     <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
 

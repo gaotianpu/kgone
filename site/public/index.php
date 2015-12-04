@@ -4,6 +4,7 @@ define('ROOT_DIR', dirname(__FILE__) . '/..');
 require ROOT_DIR . '/private/config.inc';
 require ROOT_DIR . '/private/base.inc';
 
+session_start();
 
 $app = new \Slim\Slim();
 $app->config(array(
@@ -39,9 +40,21 @@ $app -> get('/entity/:id',function($id) use($app){
    (new EntityController($app))->get($id); 
 });
 
-$app -> get('/upload',function() use($app){
+$app -> get('/upload/records',function() use($app){
    (new UploadController($app))->get(); 
 });
+
+$app->group('/upload', function () use ($app) {
+    $c = new UploadController($app);
+    $app -> get('',function() use($c,$app){ 
+        $c->get(); 
+    });
+
+    $app -> post('',function() use($c,$app){ 
+        $c->post(); 
+    });
+});
+
 
 $app -> get('/feed/:name',function($name) use($app){
    (new FeedController($app))->get($name); 

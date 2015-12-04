@@ -1,11 +1,6 @@
 <?php
-class EntityController {
-    protected  $app;
-
-    function __construct($app) {
-        $this->app = $app;
-    }
-
+class EntityController extends BaseController {
+    
     function get($id){
        $r = $this->app->request();
 
@@ -16,7 +11,7 @@ class EntityController {
         'keywords'=>'',
         'description'=>'');  
 
-       $this->app->render('entity.inc', array('tdl' => $tdl,'main'=>$main));
+       $this->app->render('entity.inc', array('tdl' => $tdl,'user'=>$this->currentUser,'main'=>$main));
 
    }
 }

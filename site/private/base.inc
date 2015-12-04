@@ -29,6 +29,7 @@ require_once(ROOT_DIR."/private/model/Users.inc");
 require_once(ROOT_DIR."/private/dao/UsersDAO.inc");
 require_once(ROOT_DIR."/private/logic/UserLogic.inc");
 
+require_once(ROOT_DIR."/private/controller/BaseController.inc");
 require_once(ROOT_DIR."/private/controller/IndexController.inc");
 require_once(ROOT_DIR."/private/controller/RegisterController.inc");
 require_once(ROOT_DIR."/private/controller/LoginController.inc"); 

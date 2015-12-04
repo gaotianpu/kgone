@@ -6,7 +6,6 @@ class UsersDAO extends BaseDAO {
         $p->execute(array(":mobile"=>$mobile));
 
         if(($r = $p->fetch(PDO::FETCH_ASSOC)) !== false){ 
-             
             return $r;
         }
         return false ;  

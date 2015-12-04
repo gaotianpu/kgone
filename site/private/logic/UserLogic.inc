@@ -8,34 +8,34 @@ class UserLogic {
     }
 
 
-    function login($mobile,$password){
-        $user = $this->dao->load_by_mobile($mobile);
+    function login($mobile,$password){ 
 
+        $user = $this->dao->load_by_mobile($mobile); 
 
+        if(isset($user)){ 
 
-        if( isset($user)){
-            //md5 ?
-            if ($user['password']==$password){
+            if ( password_verify($password,$user['password']) ===true ){ 
                 return $user['pk_id'];
+
+            }else{
+
+                return false;
             }
         }
-
-        return false;
-
     }
 
+
+
     function register($mobile,$password,$validateCode){
-        //validateCode? save it to redis, 并设置过期时间
+        $passwordHash = password_hash($password,PASSWORD_DEFAULT, ['cost' => 12]);
+        if($passwordHash===false){
+            throw new Exception('Password hash failed');
+        } 
 
-        //$password md5 
-        $nick_name = $mobile;
-
-        // print_r($this->dao);
+        $nick_name = $mobile; 
 
         $dao = new UsersDAO();
-        $userId = $dao->insert($mobile,$password,$nick_name);
-
-        // $userId = $this->dao->insert($mobile,$password,$nick_name);
+        $userId = $dao->insert($mobile,$passwordHash,$nick_name); 
 
         return $userId; 
     }

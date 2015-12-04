@@ -18,8 +18,21 @@
         </li>  
     </ul>
       <ul class="nav navbar-nav navbar-right">
+      <?php if($user===false){ ?> 
         <li><a href="/register">注册</a></li>
         <li><a href="/login">登录</a></li> 
+        <?php }else {?>
+      <li><a href="/upload/records">数据上传</a></li> 
+         <li class="dropdown">
+         <a href="#"><?php echo $user['mobile'] ?><span class="caret"></span></a>
+               
+              <ul class="dropdown-menu">
+                <li><a href="#">Setting</a></li>
+                <li><a href="#">Logout</a></li> 
+              </ul>
+            </li> 
+
+        <?php }?>
       </ul>
     </div>
   </div>

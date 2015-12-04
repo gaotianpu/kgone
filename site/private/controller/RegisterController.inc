@@ -1,10 +1,5 @@
 <?php
-class RegisterController{
-    protected  $app;
-
-    function __construct($app) {
-        $this->app = $app;
-    }
+class RegisterController extends BaseController{ 
 
     function get(){ 
      $r = $this->app->request();
@@ -24,12 +19,22 @@ class RegisterController{
 
     $mobile = $this->app->request()->params('mobile');
     $password = $this->app->request()->params('password');
-    $smsCode = 1000; // $this->app->request()->params('smsCode'); 
+    $smsCode = 1000; // $this->app->request()->params('smsCode');  
 
-    echo $mobile,$password;
+    // echo $mobile,$passwordHash;
 
     $userId = $logic->register($mobile,$password,$smsCode);
-    echo $userId;
+
+    $_SESSION['userId']=$userId;
+    $_SESSION['mobile']=$mobile;
+    
+    
+
+    $this->app->response->redirect('/',302);
+
+    // echo $userId;
+
+    //注册成功,直接登录
 }
 
 }
