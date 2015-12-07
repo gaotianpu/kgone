@@ -4,6 +4,7 @@ autoprefixer = require('gulp-autoprefixer'),
 minifycss = require('gulp-minify-css'),
 jshint = require('gulp-jshint'),
 uglify = require('gulp-uglify'),
+amdOptimize = require('amd-optimize'),
 imagemin = require('gulp-imagemin'),
 rename = require('gulp-rename'),
 concat = require('gulp-concat'),
@@ -12,11 +13,6 @@ cache = require('gulp-cache'),
 contentIncluder = require('gulp-content-includer'),
 livereload = require('gulp-livereload'),
 del = require('del');
-
-/*
-npm install gulp-content-includer gulp-ruby-sass gulp-autoprefixer gulp-minify-css gulp-jshint gulp-concat gulp-uglify gulp-imagemin gulp-notify gulp-rename gulp-livereload gulp-cache del --save-dev
-*/
-// 
 
 //js语法检查
 gulp.task('jshint',function () {
@@ -28,20 +24,21 @@ gulp.task('jshint',function () {
 gulp.task('js', function ()
 {
   return gulp.src('./src/static/js/*.js')
-  // .pipe(amdOptimize('main', { 
-  //   paths:{
-  //     "jquery":'./src/static/js/lib/jquery-1.11.3.min',
-  //     "Mustache":'./src/static/js/lib/mustache',
-  //     "bootstrap":'./src/static/js/lib/bootstrap'
-  //   },
-  //   findNestedDependencies: true,
-  //   include: false
-  // }))
-  // .pipe(concat('main.js'))
+  .pipe(amdOptimize('main', { 
+    paths:{
+      "jquery":'./src/static/js/lib/jquery-1.11.3.min',
+      "Mustache":'./src/static/js/lib/mustache',
+      "bootstrap":'./src/static/js/lib/bootstrap'
+    },
+    findNestedDependencies: true,
+    include: false
+  }))
+  .pipe(concat('main.js'))
   .pipe(gulp.dest('./dist/static/js/'))  
   .pipe(rename("main.min.js")) 
   //.pipe(uglify()) 
   .pipe(gulp.dest('./dist/static/js/'));
+
 });
 
 
@@ -68,9 +65,22 @@ gulp.task('clean', function(cb) {
   del(['./dist/static/css', './dist/static/js'], cb)
 });
 
+gulp.task('scp', function() {
+  gulp.src('./dist/static/css/*.css')    //需要操作的文件  
+    .pipe(gulp.dest('../php/public/static/css'))       
+        .pipe(gulp.dest('/opt/local/www/kgone/public/static/css'));   //输出文件夹
+
+   gulp.src('./dist/static/js/*.js')
+    .pipe(gulp.dest('../php/public/static/js'))
+    .pipe(gulp.dest('/opt/local/www/kgone/public/static/js'));
+ 
+});
+
+
 //gulp 默认命令，在cmd中输入gulp后，执行的就是这个任务(压缩js需要在检查js之后操作)
 gulp.task('default',['jshint'],function() {
-    gulp.start('html','css','js'); // 'clean',
+   gulp.start('html','css','js').start('scp'); // 'clean',
+   // gulp.start('scp');
 });
 
 //gulp watch

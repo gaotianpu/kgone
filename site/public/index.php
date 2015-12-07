@@ -41,8 +41,13 @@ $app -> get('/entity/:id',function($id) use($app){
 });
 
 $app -> get('/upload/records',function() use($app){
-   (new UploadController($app))->get(); 
+   (new UploadRecordsController($app))->get(); 
 });
+
+$app -> get('/upload/reports',function() use($app){
+   echo "upload reports";
+});
+
 
 $app->group('/upload', function () use ($app) {
     $c = new UploadController($app);

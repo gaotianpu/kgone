@@ -22,8 +22,8 @@ require_once(ROOT_DIR."/private/dao/EntityTypesDAO.inc");
 require_once(ROOT_DIR."/private/logic/EntityTypesLogic.inc");
 
 require_once(ROOT_DIR."/private/model/UploadBatches.inc");
-require_once(ROOT_DIR."/private/dao/UploadBatchesDAO.inc");
-require_once(ROOT_DIR."/private/logic/UploadBatchesLogic.inc");
+require_once(ROOT_DIR."/private/dao/UploadRecordsDAO.inc"); 
+require_once(ROOT_DIR."/private/logic/UploadRecordsLogic.inc"); 
 
 require_once(ROOT_DIR."/private/model/Users.inc");
 require_once(ROOT_DIR."/private/dao/UsersDAO.inc");
@@ -36,6 +36,7 @@ require_once(ROOT_DIR."/private/controller/LoginController.inc");
 require_once(ROOT_DIR."/private/controller/EntityTypeController.inc");
 require_once(ROOT_DIR."/private/controller/EntityController.inc");
 require_once(ROOT_DIR."/private/controller/UploadController.inc");
+require_once(ROOT_DIR."/private/controller/UploadRecordsController.inc");
 require_once(ROOT_DIR."/private/controller/FeedController.inc");
 require_once(ROOT_DIR."/private/controller/DownloadController.inc");
 require_once(ROOT_DIR."/private/controller/SchemaController.inc");
