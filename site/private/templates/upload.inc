@@ -11,9 +11,9 @@ require 'common/navbar.inc' ;
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">选择数据类型</label>
     <div class="col-sm-3">
-      <select class="form-control">
-        <option>电影院</option>
-        <option>电影</option>
+      <select name="typeId" class="form-control" >
+        <option value="1">电影院</option>
+        <option value="2">电影</option>
     </select>
 </div>
 <div class="col-sm-2"> 
@@ -26,10 +26,17 @@ require 'common/navbar.inc' ;
 <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">JSON数据</label>
     <div class="col-sm-9">
-        <textarea class="form-control" style='min-height:300px;'>[{"schemaVersion":"0.1","type":"MovieTheater","siteEntityId":"36d8ee0cd94332f66240a9e4","name":"艾米1895电影街北京世茂店","url":"http://bj.nuomi.com/cinema/36d8ee0cd94332f66240a9e4"},{"schemaVersion":"0.1","type":"MovieTheater","siteEntityId":"36d8ee0cd94332f66240a9e4","name":"艾米1895电影街北京世茂店","url":"http://bj.nuomi.com/cinema/36d8ee0cd94332f66240a9e4"}]
+        <textarea name="content" class="form-control" style='min-height:300px;'>[{"schemaVersion":"0.1","type":"MovieTheater","siteEntityId":"36d8ee0cd94332f66240a9e4","name":"艾米1895电影街北京世茂店","url":"http://bj.nuomi.com/cinema/36d8ee0cd94332f66240a9e4"},{"schemaVersion":"0.1","type":"MovieTheater","siteEntityId":"36d8ee0cd94332f66240a9e4","name":"艾米1895电影街北京世茂店","url":"http://bj.nuomi.com/cinema/36d8ee0cd94332f66240a9e4"}]
   </textarea>
     </div>
 </div>
+<div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">备注</label>
+    <div class="col-sm-9">
+    <input type="text" name="notes" class="form-control"/>
+    </div>
+</div>
+
 
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-9">
