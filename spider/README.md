@@ -27,7 +27,11 @@ http://doc.scrapy.org/en/1.0/topics/spiders.html#crawlspider
 
 ### 8. 使用http代理
 https://github.com/aivarsk/scrapy-proxies/blob/master/randomproxy.py
+
 http://doc.scrapy.org/en/1.0/topics/downloader-middleware.html#module-scrapy.downloadermiddlewares.httpproxy
+
+scrapy.spiders.Rule process_request 
+Request.meta proxy http://some_proxy_server:port
 
 #### 9. 参数设置
 DOWNLOAD_DELAY = 1
