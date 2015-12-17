@@ -35,7 +35,7 @@ COOKIES_ENABLED=False
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED=False
 
-LOG_LEVEL = 'DEBUG' #CRITICAL,ERROR,WARNING,INFO,DEBUG
+
 
 # Override the default request headers:
 #DEFAULT_REQUEST_HEADERS = {
@@ -100,7 +100,13 @@ RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
 FEED_FORMAT= 'jsonlines'
 FEED_URI = 'douban/tmp/douban_book.json'
 
+# http://doc.scrapy.org/en/1.0/topics/logging.html
+LOG_ENABLED = True 
+LOG_FILE = 'douban/tmp/douban_book.log'
+LOG_LEVEL = 'DEBUG' #CRITICAL,ERROR,WARNING,INFO,DEBUG
 
+
+# https://github.com/aivarsk/scrapy-proxies
 # Proxy list containing entries like
 # http://host1:port
 # http://username:password@host2:port

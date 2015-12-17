@@ -23,7 +23,7 @@ class RandomHttpProxy(object):
                 self.proxies[parts.group(2)] = user_pass
                 fin.close()
 
-
+        # source code 
         # fin = open(self.proxy_list)
         # self.proxies = {}
         # for line in fin.readlines():
