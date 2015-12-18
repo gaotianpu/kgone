@@ -1,4 +1,5 @@
-## Scrapy 
+## Scrapy
+Scrapy官方文档对于先后顺序、关联关系组织的不是很合理
 
 ### 1.  实现网络爬虫，需要解决哪些问题？
 http://www.cnblogs.com/onlytiancai/archive/2008/04/19/1161425.html
@@ -11,33 +12,74 @@ http://doc.scrapy.org/en/1.0/topics/architecture.html
 ### 3. 下载安装
 http://doc.scrapy.org/en/1.0/intro/install.html
 
+- mac
+- ubuntu
+- windows
+
 ### 4. Scrapy入门
 http://doc.scrapy.org/en/1.0/intro/tutorial.html
 
 ### 5. 从网页中提取结构化数据
 http://doc.scrapy.org/en/1.0/topics/selectors.html
 
-python shell url #开发调试阶段 
+python shell url 
+可以在开发调试阶段避免重复下载网页，有效节省下载过程中的等待时间
 
 ### 6. 保存提取的结构化数据
+格式&存储介质
+http://doc.scrapy.org/en/1.0/topics/feed-exports.html
+http://doc.scrapy.org/en/1.0/topics/exporters.html
 http://doc.scrapy.org/en/1.0/topics/item-pipeline.html
+
+格式：
+FEED_FORMAT: jsonlines/json/csv/xml/
+
+1. 命令行输出 Standard output
+scrapy crawer xxx  -o xxx.json -t jsonlines
+FEED_URI: stdout
+
+2. 输出到文件 Local filesystem 
+setting
+FEED_URI: file:///tmp/export.csv #可以使用相对路径？
+
+
+3. item pipline
+写入文件需要考虑到多线程锁情况，锁的处理非常复杂，(scrapy已实现的Local filesystem？Feed Exports)
+因此推荐使用已有的数据库技术mysql，redis，CouchDB,MongoDB等。
+
+JsonItemExporter/JsonLinesItemExporter,数据量大时用JsonLinesItemExporter
+
+使用mongodb的好处？
 
 ### 7. crawlspider
 http://doc.scrapy.org/en/1.0/topics/spiders.html#crawlspider
 
 ### 8. 使用http代理
-https://github.com/aivarsk/scrapy-proxies/blob/master/randomproxy.py
+可以在rule的process_request中加入http代理，也可以写一个独立的downloadmiddleware,后者解耦好，可以保持代码结构的清洁。
 
 http://doc.scrapy.org/en/1.0/topics/downloader-middleware.html#module-scrapy.downloadermiddlewares.httpproxy
 
 scrapy.spiders.Rule process_request 
 Request.meta proxy http://some_proxy_server:port
 
-#### 9. 参数设置
+https://github.com/aivarsk/scrapy-proxies/blob/master/randomproxy.py
+
+### Jobs: pausing and resuming crawls
+http://doc.scrapy.org/en/1.0/topics/jobs.html
+
+### 9. 参数设置
 DOWNLOAD_DELAY = 1
 AUTOTHROTTLE_ENABLED = True
 COOKIES_ENABLED = False
 RETRY_TIMES = 10
 RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
 
-### 10. 常见问题
+### 10. 日志策略
+scrapy的log不在使用，建议使用python官方log。
+
+
+### 11. 常见问题
+
+登录后抓取
+
+selenium
