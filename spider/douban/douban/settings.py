@@ -36,7 +36,6 @@ COOKIES_ENABLED=False
 #TELNETCONSOLE_ENABLED=False
 
 
-
 # Override the default request headers:
 #DEFAULT_REQUEST_HEADERS = {
 #   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -52,8 +51,7 @@ COOKIES_ENABLED=False
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   # 'douban.middlewares.MyCustomDownloaderMiddleware': 543,
-   # 'douban.RandomHttpProxyMiddleware.RandomHttpProxyMiddleware': 100,
+   # 'douban.middlewares.MyCustomDownloaderMiddleware': 543, 
    'douban.middlewares.RandomHttpProxy.RandomHttpProxy': 100,
 }
 
@@ -67,7 +65,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   # 'douban.pipelines.DoubanPipeline': 300,
+   'douban.pipelines.DoubanPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -83,11 +81,14 @@ AUTOTHROTTLE_ENABLED=True
 
 # Enable and configure HTTP caching (disabled by default)
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
-#HTTPCACHE_ENABLED=True
-#HTTPCACHE_EXPIRATION_SECS=0
-#HTTPCACHE_DIR='httpcache'
-#HTTPCACHE_IGNORE_HTTP_CODES=[]
-#HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
+HTTPCACHE_ENABLED=True
+HTTPCACHE_EXPIRATION_SECS=0
+HTTPCACHE_DIR='httpcache'  #.scrapy/httpcache/
+HTTPCACHE_IGNORE_HTTP_CODES= [500, 503, 504, 400, 403, 404, 408]
+HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+STATS_CLASS = 'scrapy.statscollectors.MemoryStatsCollector'
+STATS_DUMP = True
 
 # Retry many times since proxies often fail
 RETRY_TIMES = 10
@@ -95,24 +96,30 @@ RETRY_TIMES = 10
 RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
 
 
+JOBDIR = 'tmp/job'
+
+
 # export to Local filesystem & jsonlines format
 # see http://doc.scrapy.org/en/1.0/topics/feed-exports.html
 FEED_FORMAT= 'jsonlines'
-FEED_URI = 'douban/tmp/douban_book.json'
+FEED_URI = 'tmp/douban_book.json'
+
+MONGO_URI = 'mongodb://localhost:27017/'
+# MONGO_DATABASE = 'douban' #use bot_name ?
 
 # http://doc.scrapy.org/en/1.0/topics/logging.html
 LOG_ENABLED = True 
-LOG_FILE = 'douban/tmp/douban_book.log'
-LOG_LEVEL = 'DEBUG' #CRITICAL,ERROR,WARNING,INFO,DEBUG
+LOG_LEVEL = 'INFO' #CRITICAL,ERROR,WARNING,INFO,DEBUG
+LOG_FILE = 'tmp/douban.log'
 
 
 # https://github.com/aivarsk/scrapy-proxies
 # Proxy list containing entries like
-# http://host1:port
-# http://username:password@host2:port
-# http://host3:port
+# host1:port
+# username:password@host2:port
+# host3:port
 # ...
-PROXY_LIST = 'douban/proxies.txt'
+PROXY_LIST = 'proxies.txt'
 
 
 

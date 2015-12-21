@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import json
+import pymongo
 
 # Define your item pipelines here
 #
@@ -7,22 +7,36 @@ import json
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 
-class DoubanPipeline(object):
-    def __init__(self,data_file):
-        self.data_file = data_file
-        self.file = open(data_file, 'wb') #lock?
+class DoubanPipeline(object):  
+    def __init__(self, mongo_uri, mongo_db):
+        self.mongo_uri = mongo_uri
+        self.mongo_db = mongo_db
 
     @classmethod
     def from_crawler(cls,crawler):
-        return cls(data_file=crawler.settings.get('DATA_FILE'))  #cls ?
+        return cls(
+            mongo_uri = crawler.settings.get('MONGO_URI'),
+            mongo_db = crawler.settings.get('BOT_NAME')  #crawler.settings.get('MONGO_DATABASE')
+        )
 
-    def process_item(self, item, spider):
-        line = json.dumps(dict(item))
-        self.file.write(line+'\n')
-        return item
-    
     def open_spider(self, spider):
-        pass
+        self.client = pymongo.MongoClient(self.mongo_uri)
+        self.db = self.client[self.mongo_db]
 
     def close_spider(self,spider):
-        self.file.close()
+        self.client.close()
+
+
+    def process_item(self, item, spider):            
+        self.db[spider.name].insert(dict(item))
+        return item
+    
+    
+if __name__ == '__main__':
+    ##books.douban_book
+    with pymongo.MongoClient('mongodb://localhost:27017/') as client:
+        db = client['books']
+        # db['douban_books'].insert({'a':'b'})
+        for x in db['douban_book'].find():
+            print x
+        client.close()

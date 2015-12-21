@@ -93,3 +93,10 @@ def remove_tags(text):
 <div id="info" class=""><span><span class="pl"> 作者</span>:<a class="" href="/search/%E6%9C%B1%E5%87%8C%E9%94%8B">朱凌锋</a></span><br><span class="pl">出版社:</span> 四川文艺出版社<br><span class="pl">出版年:</span> 2015-11<br><span class="pl">页数:</span> 240<br><span class="pl">定价:</span> 49.00<br><span class="pl">装帧:</span> 平装<br><span class="pl">ISBN:</span> 9787541141645<br></div>
 </pre>
 
+## deploy
+1. 暂停&重启
+2. 统计，多少次request,成功/失败比例，下载了多少次
+3. 查看代码，该怎么增加日志
+
+Crawled 45 pages (at 45 pages/min), scraped 45 items (at 45 items/min)
+

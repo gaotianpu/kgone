@@ -3,13 +3,15 @@
 import re
 import random
 import base64
-from scrapy import log
+import logging
+
 
 # https://github.com/aivarsk/scrapy-proxies
 
 class RandomHttpProxy(object):
-    def __init__(self, settings):
+    def __init__(self, settings,stats):
         self.proxy_list = settings.get('PROXY_LIST')
+        self.stats = stats 
 
         self.proxies = {}
         with open(self.proxy_list) as fin:
@@ -38,7 +40,7 @@ class RandomHttpProxy(object):
 
     @classmethod
     def from_crawler(cls, crawler):
-        return cls(crawler.settings)
+        return cls(crawler.settings,crawler.stats)
 
     def process_request(self, request, spider):
         # Don't overwrite with a random one (server-side state for IP)
@@ -55,8 +57,9 @@ class RandomHttpProxy(object):
 
     def process_exception(self, request, exception, spider):
         proxy = request.meta['proxy']
-        log.msg('Removing failed proxy <%s>, %d proxies left' % (
+        logging.warning('Removing failed proxy <%s>, %d proxies left' % (
                     proxy, len(self.proxies)))
+        self.stats.set_value('proxy_len',len(self.proxies))
         try:
             del self.proxies[proxy]
         except ValueError:

@@ -14,7 +14,9 @@ class DoubanItem(scrapy.Item):
     name = scrapy.Field()
     image = scrapy.Field() 
     isbn = scrapy.Field()
-    puborg = scrapy.Field()  #出版社？
+    subtitle = scrapy.Field()
+    book_set = scrapy.Field()
+    publisher = scrapy.Field()  #出版社？
     author = scrapy.Field()
     author1 = scrapy.Field()
     subtitle = scrapy.Field()
