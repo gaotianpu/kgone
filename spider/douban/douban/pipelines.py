@@ -22,21 +22,26 @@ class DoubanPipeline(object):
     def open_spider(self, spider):
         self.client = pymongo.MongoClient(self.mongo_uri)
         self.db = self.client[self.mongo_db]
+        #创建索引？
+        result = self.db[spider.name].create_index('Id',unique=True,background=True)
+        result = self.db[spider.name].create_index('name',background=True)
 
     def close_spider(self,spider):
         self.client.close()
 
 
-    def process_item(self, item, spider):            
-        self.db[spider.name].insert(dict(item))
+    def process_item(self, item, spider):   
+        #根据id判断是否已存在？  
+        result = self.db[spider.name].replace_one({'Id':item['Id']},dict(item),True)
+        # print item['Id'],spider.name,result.matched_count #.matched_count
         return item
     
     
-if __name__ == '__main__':
-    ##books.douban_book
+if __name__ == '__main__': 
     with pymongo.MongoClient('mongodb://localhost:27017/') as client:
-        db = client['books']
-        # db['douban_books'].insert({'a':'b'})
-        for x in db['douban_book'].find():
+        # client['books']['douban_book'].delete_many({}) 
+        # client['douban']['douban_book'].delete_many({}) 
+        # for x in client['books']['douban_book'].find():
+        for x in client['douban']['douban_book'].find():
             print x
         client.close()

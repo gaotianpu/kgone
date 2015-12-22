@@ -32,9 +32,9 @@ class DoubanBookSpider(CrawlSpider):
         func = lambda x : x[0].strip() if len(x)>0 else ''  
 
         # #wrapper > h1 > span
-        item['name']= func(response.css('#wrapper > h1 > span::text').extract())  
+        item['name']= response.css('#wrapper > h1 > span::text').extract_first(default='')  
         # #mainpic > a > img
-        item['image']= func(response.css('#mainpic > a > img::attr(src)').extract()) 
+        item['image']= response.css('#mainpic > a > img::attr(src)').extract_first(default='')  
 
         intro = response.css('#info').extract()  # #info
         if intro:
@@ -54,11 +54,11 @@ class DoubanBookSpider(CrawlSpider):
             self.logger.warning('#info is null %s', item['Id']) 
                
         # #link-report > div:nth-child(1) > div
-        item['bookInfo']= func(response.css('#link-report > div:nth-child(1) > div').extract()) #需要进一步的分拆？
+        item['bookInfo']= response.css('#link-report > div:nth-child(1) > div').extract_first(default='')  #需要进一步的分拆？
         # #content > div > div.article > div.related_info > div:nth-child(5) > div > div
-        item['authorInfo']= func(response.css('div.related_info > div:nth-child(5) > div > div').extract()) #需要进一步的分拆？        
+        item['authorInfo']= response.css('div.related_info > div:nth-child(5) > div > div').extract_first(default='')   #需要进一步的分拆？        
         # #content > div > div.article > div.related_info > div:nth-child(1) > div > div.ebook-link > a
-        ebookId = func(response.css('div.ebook-link > a::attr(href)').extract())    #电子书链接 
+        ebookId = response.css('div.ebook-link > a::attr(href)').extract_first(default='')      #电子书链接 
         item['ebookId']= ebookId.split('?')[0] if  ebookId else ''
         # #db-tags-section > div > span:nth-child(1) > a 
         item['tags']= response.css('#db-tags-section > div > span > a::text').extract()
@@ -69,9 +69,9 @@ class DoubanBookSpider(CrawlSpider):
         # #collector > p:nth-child(5) > a
         item['readingCount']= response.css('#collector > p:nth-child(5) > a::text').re_first('(\d+)') #.extract()
         # #interest_sectl > div > div.rating_self.clearfix > strong
-        item['score']= func(response.css('div.rating_self.clearfix > strong::text').extract())   
+        item['score']= response.css('div.rating_self.clearfix > strong::text').extract_first(default='')     
         # #interest_sectl > div > div.rating_self.clearfix > div > div.rating_sum > span > a > span
-        item['reviewCount']= func(response.css('div.rating_sum > span > a > span::text').extract())   
+        item['reviewCount']= response.css('div.rating_sum > span > a > span::text').extract()
         
         func = lambda x,key : x[key][0].strip() if x.has_key(key) else ''
         # #buyinfo-printed > ul > li > a   #购买连接 
