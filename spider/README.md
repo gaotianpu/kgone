@@ -22,6 +22,12 @@ http://doc.scrapy.org/en/1.0/intro/tutorial.html
 ### 5. 从网页中提取结构化数据
 http://doc.scrapy.org/en/1.0/topics/selectors.html
 
+http://www.cnblogs.com/ziyunfei/archive/2012/10/05/2710631.html
+
+可视化获取xpath/csspath
+http://stackoverflow.com/questions/2631820/im-storing-click-coordinates-in-my-db-and-then-reloading-them-later-and-showing/2631931#2631931
+http://jsfiddle.net/luisperezphd/L8pXL/
+
 python shell url 
 可以在开发调试阶段避免重复下载网页，有效节省下载过程中的等待时间
 
@@ -64,8 +70,15 @@ Request.meta proxy http://some_proxy_server:port
 
 https://github.com/aivarsk/scrapy-proxies/blob/master/randomproxy.py
 
-### Jobs: pausing and resuming crawls
+### 9.pausing and resuming crawls
 http://doc.scrapy.org/en/1.0/topics/jobs.html
+
+### 10. Stats Collection
+能够方便的查看状态，运行时间，request次数，成功次数，提取数据条数，代理的健康状况等
+http://doc.scrapy.org/en/1.0/topics/stats.html
+
+### 10. 日志策略
+scrapy的log不在使用，建议使用python官方log。
 
 ### 9. 参数设置
 DOWNLOAD_DELAY = 1
@@ -73,10 +86,6 @@ AUTOTHROTTLE_ENABLED = True
 COOKIES_ENABLED = False
 RETRY_TIMES = 10
 RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
-
-### 10. 日志策略
-scrapy的log不在使用，建议使用python官方log。
-
 
 ### 11. 常见问题
 
