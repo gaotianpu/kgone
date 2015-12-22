@@ -9,7 +9,7 @@ import re
 
 from douban.items import DoubanItem
 
-book_properties = {u'作者':'author',u'出版社':'publisher',u'副标题':'subtitle',u'丛书':'book_set',u'原作名':'author1',u'译者':'translator',u'出版年':'publish_date',u'页数':'pageCount',u'定价':'price',u'装帧':'zhuangzhen',u'ISBN':'isbn'}
+book_properties = {u'作者':'author',u'出版社':'publisher',u'副标题':'subtitle',u'丛书':'book_set',u'原作名':'author1',u'译者':'translator',u'出版年':'publish_date',u'页数':'pageCount',u'定价':'price',u'装帧':'zhuangzhen',u'ISBN':'isbn',u'统一书号':'isbn0'}
 
 
 class DoubanBookSpider(CrawlSpider):
@@ -27,9 +27,7 @@ class DoubanBookSpider(CrawlSpider):
         m = re.search(r'(\d+)',response.url)
         item['Id']=  m.group(0) if m else '' 
 
-        item['url']= response.url
-
-        func = lambda x : x[0].strip() if len(x)>0 else ''  
+        item['url']= response.url 
 
         # #wrapper > h1 > span
         item['name']= response.css('#wrapper > h1 > span::text').extract_first(default='')  
