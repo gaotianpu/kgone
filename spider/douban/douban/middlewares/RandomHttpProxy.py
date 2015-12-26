@@ -56,11 +56,11 @@ class RandomHttpProxy(object):
             request.headers['Proxy-Authorization'] = basic_auth
 
     def process_exception(self, request, exception, spider):
-        proxy = request.meta['proxy']
+        proxy = request.meta['proxy'].replace('http://','')
         logging.warning('Removing failed proxy <%s>, %d proxies left' % (proxy, len(self.proxies)))
         self.stats.set_value('proxy_len',len(self.proxies))
         try:
-            del self.proxies[proxy.replace('http://','')] 
+            del self.proxies[proxy] 
         except ValueError:
             pass
 
