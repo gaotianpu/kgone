@@ -22,7 +22,7 @@ class RandomHttpProxy(object):
                     user_pass = parts.group(1)[:-1]
                 else:
                     user_pass = ''
-                self.proxies[parts.group(2)] = user_pass
+                self.proxies[parts.group(2).strip()] = user_pass.strip()
                 fin.close()
 
         # source code 
@@ -57,11 +57,10 @@ class RandomHttpProxy(object):
 
     def process_exception(self, request, exception, spider):
         proxy = request.meta['proxy']
-        logging.warning('Removing failed proxy <%s>, %d proxies left' % (
-                    proxy, len(self.proxies)))
+        logging.warning('Removing failed proxy <%s>, %d proxies left' % (proxy, len(self.proxies)))
         self.stats.set_value('proxy_len',len(self.proxies))
         try:
-            del self.proxies[proxy]
+            del self.proxies[proxy.replace('http://','')] 
         except ValueError:
             pass
 

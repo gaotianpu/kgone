@@ -20,8 +20,9 @@ class DoubanPipeline(object):
         )
 
     def open_spider(self, spider):
+        # 放在初始化阶段，每次频繁的open/close ?
         self.client = pymongo.MongoClient(self.mongo_uri)
-        self.db = self.client[self.mongo_db]
+        self.db = self.client[self.mongo_db] 
         #创建索引？
         result = self.db[spider.name].create_index('Id',unique=True,background=True)
         result = self.db[spider.name].create_index('name',background=True)
@@ -31,17 +32,14 @@ class DoubanPipeline(object):
 
 
     def process_item(self, item, spider):   
-        #根据id判断是否已存在？  
-        result = self.db[spider.name].replace_one({'Id':item['Id']},dict(item),True)
-        # print item['Id'],spider.name,result.matched_count #.matched_count
+        #去重，根据id判断是否已存在？  
+        result = self.db[spider.name].replace_one({'Id':item['Id']},dict(item),True) 
         return item
     
     
 if __name__ == '__main__': 
-    with pymongo.MongoClient('mongodb://localhost:27017/') as client:
-        # client['books']['douban_book'].delete_many({}) 
-        # client['douban']['douban_book'].delete_many({}) 
-        # for x in client['books']['douban_book'].find():
+    with pymongo.MongoClient('mongodb://localhost:27017/') as client: 
         for x in client['douban']['douban_book'].find():
-            print x
+            pass
+        print client['douban']['douban_book'].count()
         client.close()

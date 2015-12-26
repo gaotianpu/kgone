@@ -16,18 +16,19 @@ NEWSPIDER_MODULE = 'douban.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'douban (+http://www.yourdomain.com)'
+#USER_AGENT = 'douban (+http://www.2e71.com)'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS=32
+CONCURRENT_REQUESTS=32
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
 # DOWNLOAD_DELAY=3
 # The download delay setting will honor only one of:
-#CONCURRENT_REQUESTS_PER_DOMAIN=16
+CONCURRENT_REQUESTS_PER_DOMAIN=32  #(default: 8)
 #CONCURRENT_REQUESTS_PER_IP=16
+
 
 # Disable cookies (enabled by default)
 COOKIES_ENABLED=False
@@ -71,7 +72,7 @@ ITEM_PIPELINES = {
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
 # NOTE: AutoThrottle will honour the standard settings for concurrency and delay
-AUTOTHROTTLE_ENABLED=True
+# AUTOTHROTTLE_ENABLED=True
 # The initial download delay
 # AUTOTHROTTLE_START_DELAY=5
 # The maximum download delay to be set in case of high latencies
@@ -85,7 +86,7 @@ HTTPCACHE_ENABLED=True
 HTTPCACHE_EXPIRATION_SECS=0
 HTTPCACHE_DIR='httpcache'  #.scrapy/httpcache/
 HTTPCACHE_IGNORE_HTTP_CODES= [500, 503, 504, 400, 403, 404, 408]
-HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
+HTTPCACHE_STORAGE= 'scrapy.extensions.httpcache.LeveldbCacheStorage' # '.FilesystemCacheStorage'
 
 STATS_CLASS = 'scrapy.statscollectors.MemoryStatsCollector'
 STATS_DUMP = True
@@ -96,21 +97,22 @@ RETRY_TIMES = 10
 RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
 
 
-JOBDIR = 'tmp/job'
+JOBDIR = '.job/'
 
 
 # export to Local filesystem & jsonlines format
 # see http://doc.scrapy.org/en/1.0/topics/feed-exports.html
 FEED_FORMAT= 'jsonlines'
-FEED_URI = 'tmp/douban_book.json'
-
+# FEED_URI = 'tmp/douban_book.json'  #这个对资源影响有多大？ file/mongodb双保险？
 MONGO_URI = 'mongodb://localhost:27017/'
 # MONGO_DATABASE = 'douban' #use bot_name ?
 
+
 # http://doc.scrapy.org/en/1.0/topics/logging.html
 LOG_ENABLED = True 
+# LOG_STDOUT = True 
 LOG_LEVEL = 'INFO' #CRITICAL,ERROR,WARNING,INFO,DEBUG
-LOG_FILE = 'tmp/douban.log'
+LOG_FILE = BOT_NAME + '.log'  #project + spider + date ？
 
 
 # https://github.com/aivarsk/scrapy-proxies

@@ -1,4 +1,8 @@
 *.pyc
+*.log
 */tmp/
 *.DS_Store
 *.scrapy
+*.job
+proxies.txt
+#settings.py

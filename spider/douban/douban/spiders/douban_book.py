@@ -15,11 +15,29 @@ book_properties = {u'作者':'author',u'出版社':'publisher',u'副标题':'sub
 class DoubanBookSpider(CrawlSpider):
     name = 'douban_book'
     allowed_domains = ['douban.com']
-    start_urls = ['http://book.douban.com/']
+    start_urls = ['http://book.douban.com/tag/']
 
+    # 多个Rule是否有先后顺序？ 
+    # LinkExtractor? 
     rules = (
-        Rule(LinkExtractor(allow=r'^http://book\.douban\.com/subject/(\d+)/$'), callback='parse_item', follow=True),
+        # Rule(LinkExtractor(deny=r'^http://book\.douban\.com/review/(\d+)/$')),
+        # Rule(LinkExtractor(deny=r'^http://movie\.douban\.com/$')),  #如果不定义，url会怎样？
+
+        # (www)[^((?!xyz).)*$] 
+        #  deny=r'^http://www\.douban\.com/((?!tag).)*'), 
+
+        Rule(LinkExtractor(allow=r'^http://www\.douban\.com/tag/([^/])*/', process_value=lambda x: x.split('?')[0]), follow=True),
+        Rule(LinkExtractor(allow=r'^http://book\.douban\.com/subject/(\d+)/$'), callback='parse_item', follow=True), 
     )
+
+    #not using ?
+    # def process_value(self,value):
+    #     m = re.search("http://www\.douban\.com/tag/[^/]*/", value)
+    #     print value
+    #     if m: 
+    #         print m.group()
+    #         return m.group()
+         
 
     def parse_item(self,response):
         item = DoubanItem()
@@ -89,3 +107,11 @@ class DoubanBookSpider(CrawlSpider):
         item['otherSites']= urlss  
 
         return item 
+
+if __name__ == "__main__":
+    value = 'http://www.douban.com/tag/%E4%B8%89%E6%AF%9B/?focus=book'
+    m = re.search("http://www\.douban\.com/tag/[^/]*/", value)
+    if m:
+        print m.group(1)
+
+
