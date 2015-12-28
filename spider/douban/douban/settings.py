@@ -97,8 +97,11 @@ RETRY_TIMES = 10
 RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
 
 
-JOBDIR = '.job/'
+# JOBDIR = '.job/'  #pause and resume, save into local disk
 
+# https://github.com/rolando/scrapy-redis
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+SCHEDULER_PERSIST = True #是否有必要？
 
 # export to Local filesystem & jsonlines format
 # see http://doc.scrapy.org/en/1.0/topics/feed-exports.html

@@ -28,7 +28,7 @@ class DoubanBookSpider(CrawlSpider):
 
         Rule(LinkExtractor(allow=r'^http://www\.douban\.com/tag/([^/])*/',process_value=lambda x: x.split('?')[0]), 
             follow=True),
-        Rule(LinkExtractor(allow=r'^http://book\.douban\.com/subject/(\d+)/$',process_value=lambda x: x.split('?')[0]), 
+        Rule(LinkExtractor(allow=r'^http://book\.douban\.com/subject/(\d+)/',process_value=lambda x: x.split('?')[0]), 
             callback='parse_item', follow=True), 
     )
 
